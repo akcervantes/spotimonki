@@ -1,0 +1,291 @@
+/* colores pagina
+spotify: #00d66d 
+fondo:   #000000
+         #101010
+
+verified:#3d8fee;
+
+tipogfrafia
+        #ffffff
+        #a7a7a7
+        #b3b3b3
+
+tarjetas componente
+        #181818
+hover:  #222222
+*/
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "gotham", sans-serif;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  background-color: #000;
+
+  color: #fff;
+}
+
+.bodyContainer {
+  display: grid;
+  grid-template-columns: 1fr 6fr;
+}
+
+.mainContainer {
+  max-width: 100%;
+  max-height: 100%;
+  background-image: linear-gradient(#fff04c53, #101010);
+  margin: 1.2rem;
+
+  border-radius: 15px;
+}
+
+/* clases reutilizables */
+
+.btn {
+  border: none;
+  text-decoration: none;
+  background-color: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn:hover,
+.btn:active {
+  transition: all 0.1s;
+  transform: scale(105%);
+}
+
+.sectionTitle {
+  font-size: 2.8rem;
+  margin-bottom: 3.6rem;
+}
+
+/* ///////////HEADER/////////// */
+
+.mainHeader {
+  max-width: 100%;
+  height: 48rem;
+
+  background-image: linear-gradient(rgba(97, 95, 95, 0.534), #4d4920bc),
+    url(img/header.jpg);
+
+  border-radius: 15px 15px 0 0;
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  margin-bottom: 1.2rem;
+}
+
+.headerText {
+  padding: 3.6rem;
+  grid-row-start: 2;
+}
+
+.verifiedIcon {
+  fill: #3d8fee;
+  font-size: 3.6rem;
+}
+
+.verifiedArtist {
+  font-size: 1.6rem;
+  font-weight: 400;
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.bandName {
+  font-size: 12rem;
+  font-weight: bold;
+  letter-spacing: -5px;
+  margin-bottom: 2.4rem;
+}
+
+.monthlyListeners {
+  font-size: 1.8rem;
+  font-weight: 400;
+}
+
+/* ////////////music controls/////////// */
+
+.sectionControls {
+  background-color: transparent;
+  height: 10rem;
+  display: flex;
+  align-items: center;
+  padding: 3.6rem;
+  margin-bottom: 1.2rem;
+
+  gap: 2.4rem;
+}
+
+.playButton {
+  background-color: #00d66d;
+
+  padding-left: 0.3rem;
+  width: 6.4rem;
+  height: 6.4rem;
+  border-radius: 50%;
+  font-size: 3rem;
+  fill: #000;
+}
+
+.playButton:hover,
+.playButton:active {
+  background-color: #00de72;
+}
+
+.shuffleButton {
+  font-size: 4.8rem;
+  color: #a7a7a7;
+}
+
+.followingButton {
+  font-size: 1.8rem;
+  color: #fff;
+  font-weight: 600;
+  border: 1.3px solid #a7a7a7;
+  padding: 1rem 2rem;
+  border-radius: 25px;
+}
+
+.btn--2:hover {
+  transform: all 0.1s;
+  color: #fff;
+  border-color: #fff;
+}
+
+.optionsButton {
+  color: #a7a7a7;
+  font-size: 3.6rem;
+}
+
+/* ///////SECTION ALBUMS ////////// */
+
+.sectionAlbums {
+  padding: 0 3.6rem;
+  margin-bottom: 4.8rem;
+}
+
+.albumsContainer {
+  display: flex;
+  gap: 3.6rem;
+  flex-wrap: wrap;
+}
+
+.albumCard {
+  max-width: 15%;
+  max-height: 20%;
+  min-height: auto;
+  min-width: 20rem;
+  background-color: #181818;
+  border-radius: 15px;
+  padding: 2.4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
+}
+
+.albumCard:hover {
+  transition: all 0.3s;
+  background-color: #222222;
+}
+
+.albumImg {
+  max-width: 100%;
+  border-radius: 15px;
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.434);
+}
+
+.albumName {
+  font-size: 3rem;
+  font-weight: bold;
+  letter-spacing: -2px;
+}
+
+.albumInfo {
+  font-size: 1.8rem;
+  font-weight: normal;
+  color: #a7a7a7;
+}
+
+/* tracklist section */
+
+.trackFlex {
+  display: flex;
+}
+
+table {
+  width: 100%;
+  font-size: 1.6rem;
+
+  border-radius: 15px;
+}
+
+tr {
+  color: #a7a7a7;
+  height: 6.8rem;
+  border-collapse: collapse;
+
+  border-radius: 15px;
+}
+
+tr:hover {
+  transition: all;
+  background-color: #3a3a3a;
+}
+
+th {
+  font-size: 1.8rem;
+  font-weight: 300;
+  color: #a7a7a7;
+}
+
+#songInfo {
+  border-bottom: 5px solid #a7a7a7;
+  background-color: transparent;
+}
+.trackNum {
+  width: 5%;
+  text-align: center;
+}
+
+.track {
+  width: 30%;
+  text-align: left;
+}
+
+.plays {
+  width: 20%;
+  text-align: right;
+}
+
+.songDur {
+  width: 20%;
+
+  text-align: center;
+}
+
+.trackTitle {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1rem;
+  height: 6.8rem;
+}
+
+.songTitle {
+  font-size: 1.8rem;
+  color: #fff;
+}

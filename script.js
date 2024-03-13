@@ -7,10 +7,6 @@ const { artistUnion } = data;
 const { profile } = artistUnion;
 const { stats } = artistUnion;
 
-// const { discography } = artistUnion;
-// const { albums } = discography;
-// const { items } = albums;
-
 const {
   artistUnion: {
     discography: {
@@ -19,29 +15,17 @@ const {
   },
 } = data;
 
-console.log(albumsList);
-
-// const { releases } = albumsList[0];
-// const { items } = releases;
-
-// const album1 = items[0];
-// console.log(album1);
-
-//selectors
 const body = document.querySelector("body");
-
-//variables
 const artistName = profile.name;
 const listeners = stats.monthlyListeners;
 
 function elementFromHtml(html) {
   const template = document.createElement("template");
   template.innerHTML = html.trim();
-
   return template.content.firstElementChild;
 }
 
-//header
+//page header
 
 const headerSection = elementFromHtml(`<header class="mainHeader">
 <div class="headerText">
@@ -58,18 +42,14 @@ body.append(headerSection);
 
 //////////////////////////CONTROLES////////////////////////////
 
-//crear seccion
-
 const newSection = document.createElement("section");
 newSection.classList.add("sectionControls");
 body.append(newSection);
 
 // hacer fragmento
-
 const fragmentCtrl = document.createDocumentFragment();
 
 //botones
-
 function createButton(classList, innerHTML) {
   const button = document.createElement("button");
   button.classList.add("btn", ...classList);
@@ -103,7 +83,7 @@ buttonsData.forEach((buttonData) => {
 
 newSection.appendChild(fragmentCtrl);
 
-//////////////////////////////////tracklist///////////////////////////////////////////////
+/////////////////////////////tracklist/////////////////////////////
 
 //crear seccion de albums
 
@@ -111,141 +91,65 @@ const albumSection = document.createElement("section");
 albumSection.classList.add("sectionAlbums");
 body.appendChild(albumSection);
 
-//crear contenedores para los albumes
+//crear albumes
 
-function albumContainer(classList) {
-  const newAlbum = document.createElement("table");
-  newAlbum.classList.add("albumTracklist");
-  albumSection.appendChild(newAlbum);
+const { items: allAlbums } = data.artistUnion.discography.albums;
+
+function generateAlbum(position) {
+  const album = allAlbums[position].releases.items[0];
+  const songs = album.tracks.items;
+
+  const albumHeader = elementFromHtml(`
+    <div class='album-header'>
+      <img src=${album.coverArt.sources[0].url} class='albumImg'/> 
+      <div class='album-info'>
+      <span class='albumInfo'>Album</span> 
+      <h2 class='albumName'>${album.name}</h2>
+      <div class='albumInfo'>
+      <span>Arctic monkeys •</span> <span>${album.date.year} •</span>
+      <span>${album.tracks.totalCount} songs</span>
+      </div>
+      </div>
+    </div>
+    `);
+
+  const tracklistSection = document.createElement("div");
+  tracklistSection.classList.add("sectionTracklist");
+
+  const songInfo = elementFromHtml(
+    `<div id="songInfo">
+  <span class="trackNum">#</span>
+  <span class="track">track</span>
+  <span class="plays">Plays</span>
+  <span class="songDur"><ion-icon name="time-outline"></ion-icon></span>
+  </div> `
+  );
+
+  let track = "";
+
+  // agregar las secciones de cada album al documento
+  albumSection.appendChild(albumHeader);
+  albumSection.appendChild(tracklistSection);
+  tracklistSection.appendChild(songInfo);
+
+  // crear lista de tracks para cada album y hacerles append
+  songs.forEach((element) => {
+    track = elementFromHtml(`
+              <div class="trackRow">
+                <span class="trackNum">${element.track.trackNumber}</span>
+                <span class="trackTitle">
+                  <span class="songTitle">${element.track.name}</span>
+                  <span class="songArtist">${element.track.artists.items[0].profile.name}</span>
+                </span>
+                <span class="plays">${element.track.playcount}</span>
+                <span class="songDur">${element.track.duration.totalMilliseconds}</span>
+              </div> `);
+
+    tracklistSection.appendChild(track);
+  });
 }
 
-albumsList.forEach((element) => {
-  albumContainer();
-});
-
-const albumTables = document.querySelectorAll("table");
-
-let albumTabArr = [albumTables];
-
-console.log(albumTabArr);
-
-albumTabArr.forEach((element) => {
-  const tableHead = document.createElement("tHead");
-  element.appendChild(tableHead);
-});
-
-const tracklistSection = `<section class="sectionTracklist">
-<table cellspacing="0">
-  <thead>
-    <tr id="songInfo">
-      <th class="trackNum">#</th>
-      <th class="track">Title</th>
-      <th class="plays">Plays</th>
-      <th class="songDur">
-        <ion-icon name="time-outline"></ion-icon>
-      </th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <tr>
-      <td class="trackNum">1</td>
-      <td class="trackTitle">
-        <span class="songTitle">pool side</span>
-        <span class="songArtist">tricot</span>
-      </td>
-      <td class="plays">612,738</td>
-      <td class="songDur">1:01</td>
-    </tr>
-
-    <tr>
-      <td class="trackNum">2</td>
-      <td class="trackTitle">
-        <span class="songTitle">POOL</span>
-        <span class="songArtist">tricot</span>
-      </td>
-      <td class="plays">4,573,418</td>
-      <td class="songDur">3:57</td>
-    </tr>
-
-    <tr>
-      <td class="trackNum">3</td>
-      <td class="trackTitle">
-        <span class="songTitle">飛べ</span>
-        <span class="songArtist">tricot</span>
-      </td>
-      <td class="plays">1,045,206</td>
-      <td class="songDur">3:55</td>
-    </tr>
-
-    <tr>
-      <td class="trackNum">4</td>
-      <td class="trackTitle">
-        <span class="songTitle">おもてなし</span>
-        <span class="songArtist">tricot</span>
-      </td>
-      <td class="plays">956,029</td>
-      <td class="songDur">3:28</td>
-    </tr>
-
-    <tr>
-      <td class="trackNum">5</td>
-      <td class="trackTitle">
-        <span class="songTitle">artsick</span>
-        <span class="songArtist">tricot</span>
-      </td>
-      <td class="plays">2,426,824</td>
-      <td class="songDur">5:02</td>
-    </tr>
-
-    <tr>
-      <td class="trackNum">6</td>
-      <td class="trackTitle">
-        <span class="songTitle">C&C</span>
-        <span class="songArtist">tricot</span>
-      </td>
-      <td class="plays">638,068</td>
-      <td class="songDur">3:08</td>
-    </tr>
-
-    <tr>
-      <td class="trackNum">7</td>
-      <td class="trackTitle">
-        <span class="songTitle"> おちゃんせんすぅす</span>
-        <span class="songArtist">tricot</span>
-      </td>
-      <td class="plays">1,970,210</td>
-      <td class="songDur">2:48</td>
-    </tr>
-
-    <tr>
-      <td class="trackNum">8</td>
-      <td class="trackTitle">
-        <span class="songTitle"> 初耳</span>
-        <span class="songArtist">tricot</span>
-      </td>
-      <td class="plays">583,438</td>
-      <td class="songDur">3:58</td>
-    </tr>
-
-    <tr>
-      <td class="trackNum">9</td>
-      <td class="trackTitle">
-        <span class="songTitle">99.974°C</span>
-        <span class="songArtist">tricot</span>
-      </td>
-      <td class="plays">791,383</td>
-      <td class="songDur">4:21</td>
-    </tr>
-
-    <tr>
-      <td class="trackNum">10</td>
-      <td class="trackTitle">
-        <span class="songTitle"> タラッタラッタ</span>
-        <span class="songArtist">tricot</span>
-      </td>
-      <td class="plays">492,161</td>
-      <td class="songDur">4:53</td>
-    </tr>
-  </tbody>
-</table>`;
+// generar los 3 albums
+for (let i = 0; i <= allAlbums.length; i++) {
+  generateAlbum(i);
+}
